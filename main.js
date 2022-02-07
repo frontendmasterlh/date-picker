@@ -29,7 +29,7 @@
     for (let i = 0; i < monthData.days.length; i++) {
       let date = monthData.days[i];
       if (i % 7 === 0) html += "<tr>";
-      html += `<td>${date.showDate}</td>`;
+      html += `<td data-date=${date.date}>${date.showDate}</td>`;
       if (i % 7 === 6) html += "</tr>";
     }
     html += `</tbody></table></div>`;
@@ -94,5 +94,30 @@
       false
     );
     
+    // 点击选择
+    $wrapper.addEventListener('click', function(e) {
+      let $target = e.target;
+      if($target.tagName.toLowerCase() !== 'td') return;
+
+      let date = new Date(monthData.year, monthData.month - 1, $target.dataset.date)
+
+      // 对日期做格式化输入到input中
+      $input.value = format(date)
+
+      // 关闭datepicker-wrapper
+      $wrapper.classList.remove('ui-datepicker-wrapper-show')
+      isOpen = false
+    })
+
+    function format(date) {
+      let res = ''
+      let padding = (num) =>{
+        if(num <= 9) return '0' + num
+        return num
+      }
+      res += date.getFullYear() + '-' + padding(date.getMonth()+1) + '-' + padding(date.getDate());
+  
+      return res;
+    }
   }
 })();
