@@ -36,9 +36,12 @@
     return html;
   };
 
-  datepicker.render = function () {
+  datepicker.render = function (direction) {
     let year = monthData ? monthData.year : undefined;
     let month = monthData ? monthData.month : undefined;
+
+    if (direction === "prev") month--;
+    if (direction === "next") month++;
 
     let html = datepicker.buildUI(year, month)
     $wrapper = document.querySelector('.ui-datepicker-wrapper')
@@ -74,5 +77,22 @@
       },
       false
     );
+
+    // 月份切换
+    $wrapper.addEventListener(
+      "click",
+      function (e) {
+        let $target = e.target;
+        if (!$target.classList.contains("ui-datepicker-btn")) return;
+
+        if ($target.classList.contains("ui-datepicker-prev-btn")) {
+          datepicker.render("prev");
+        } else if ($target.classList.contains("ui-datepicker-next-btn")) {
+          datepicker.render("next");
+        }
+      },
+      false
+    );
+    
   }
 })();
