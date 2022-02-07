@@ -6,9 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>datepicker</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .datepicker{
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 5px;
+      height: 24px;
+      line-height: 24px;
+      width: 228px;
+    }
+    .datepicker:focus{
+      outline: none;
+      border: 1px solid #1abc9c;
+    }
+  </style>
 </head>
 <body>
- 
+  <input type="text" class="datepicker">
     <script src="./date.js"></script>
     <script src="./main.js"></script>
     <script>
