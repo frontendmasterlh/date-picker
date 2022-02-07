@@ -50,7 +50,29 @@
     $wrapper.innerHTML = html
   }
 
-  datepicker.init = function () {
+  datepicker.init = function (input) {
     datepicker.render()
+    let $input = document.querySelector(input);
+    let isOpen = false; // 默认false，表示收起; true，表示展开
+
+    // 展开收起功能
+    $input.addEventListener(
+      "click",
+      function (e) {
+        if (isOpen) {
+          $wrapper.classList.remove("ui-datepicker-wrapper-show");
+          isOpen = false;
+        } else {
+          $wrapper.classList.add("ui-datepicker-wrapper-show");
+          let left = $input.offsetLeft;
+          let top = $input.offsetTop;
+          let height = $input.offsetHeight;
+          $wrapper.style.top = top + height + 2 + "px";
+          $wrapper.style.left = left + "px";
+          isOpen = true;
+        }
+      },
+      false
+    );
   }
 })();
